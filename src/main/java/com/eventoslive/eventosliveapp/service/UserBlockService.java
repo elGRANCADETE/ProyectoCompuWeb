@@ -3,7 +3,6 @@ package com.eventoslive.eventosliveapp.service;
 import com.eventoslive.eventosliveapp.model.User;
 import com.eventoslive.eventosliveapp.model.UserBlock;
 import com.eventoslive.eventosliveapp.repository.UserBlockRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -12,14 +11,15 @@ import java.util.List;
 public class UserBlockService {
     private final UserBlockRepository userBlockRepository;
 
-    @Autowired
     public UserBlockService(UserBlockRepository userBlockRepository) {
         this.userBlockRepository = userBlockRepository;
     }
 
     @Transactional
     public UserBlock blockUser(UserBlock userBlock) {
-        // Añade lógica adicional si es necesario
+        if (userBlock == null) {
+            throw new IllegalArgumentException("UserBlock no puede ser nulo.");
+        }
         return userBlockRepository.save(userBlock);
     }
 

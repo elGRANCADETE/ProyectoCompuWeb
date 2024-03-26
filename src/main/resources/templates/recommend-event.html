@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recomendar Evento</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <h1>Recomendar Evento</h1>
+    <form th:action="@{/recommendations/recommend}" method="post">
+        <div>
+            <label for="evento">Evento:</label>
+            <select name="eventId" id="evento" required>
+                <option th:each="event : ${events}"
+                        th:value="${event.id}"
+                        th:text="${event.title}">Nombre del Evento</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="usuarioDestino">Usuario Destino:</label>
+            <input type="text" id="usuarioDestino" name="recipientUsername" required>
+        </div>
+
+        <div>
+            <input type="submit" value="Recomendar">
+        </div>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,10 @@
+/* Ejemplo básico de estilo */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    /* más estilos... */
+}
