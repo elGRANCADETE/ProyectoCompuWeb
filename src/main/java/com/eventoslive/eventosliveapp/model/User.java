@@ -1,4 +1,4 @@
-package com.eventoslive.eventoslive.model;
+package com.eventoslive.eventosliveapp.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
