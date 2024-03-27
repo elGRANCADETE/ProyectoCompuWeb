@@ -1,6 +1,6 @@
 package com.eventoslive.eventosliveapp.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "favorite_events")

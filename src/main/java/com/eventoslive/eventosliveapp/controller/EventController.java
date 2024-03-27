@@ -53,7 +53,7 @@ public class EventController {
         return "event-details";
     }
     
-    @GetMapping("/events")
+    @GetMapping("/list")
     public String showAllEvents(Model model) {
         List<Event> events = eventService.getAllEvents();
         model.addAttribute("events", events);
