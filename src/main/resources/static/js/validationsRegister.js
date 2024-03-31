@@ -74,28 +74,23 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     },
     body: JSON.stringify(userData)
   })
-  .then(response => {
-    if (!response.ok) {
-      return response.json().then(errors => {
-        throw errors;
-      });
-    }
-    return response.json();
-  })
+  .then(response => response.json())
   .then(data => {
-    // Muestra el modal aquí
-    showModal();
+    if (data.redirectUrl) {
+      window.location.href = data.redirectUrl; // Usar URL de redirección del servidor
+    } else {
+      window.location.href = '/users/registerConfirm'; // Redirigir a la página por defecto si no hay URL en la respuesta
+    }
   })
   .catch(errorResponse => {
     if (errorResponse.json) {
-      errorResponse.json().then(errors => {
-        handleErrors(errors);
-      });
+      errorResponse.json().then(errors => handleErrors(errors));
     } else {
       console.error("Error fetching:", errorResponse);
     }
   });
 });
+
 
 function handleErrors(errors) {
   for (let field in errors) {

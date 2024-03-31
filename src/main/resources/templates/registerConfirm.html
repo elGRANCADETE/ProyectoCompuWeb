@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Exitoso</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="register-success">
+            <h1>¡Registro Exitoso!</h1>
+            <p>Tu cuenta ha sido creada con éxito.</p>
+        </div>
+        <form th:action="@{/login}" method="get">
+            <button type="submit" class="btn">Iniciar sesión</button>
+        </form>
+    </div>
+</body>
+</html>
+

@@ -150,3 +150,33 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Agregar estilos específicos para la confirmación del registro */
+.register-success {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px; /* Espacio antes del botón */
+}
+
+.register-success h1 {
+  margin-bottom: 15px; /* Espacio debajo del título */
+  font-size: 2em; /* Tamaño más grande para el título */
+}
+
+.register-success p {
+  margin-bottom: 15px; /* Espacio debajo del párrafo */
+  font-size: 1.2em; /* Tamaño del texto un poco más grande */
+  line-height: 1.6; /* Espacio entre líneas para mejor lectura */
+}
+
+/* Estilo para el botón */
+.btn {
+  width: auto;
+  padding: 10px 30px;
+  font-size: 1em;
+  margin-top: 20px; /* Espacio arriba del botón */
+  display: block; /* Para que el botón sea un bloque y pueda centrarse */
+  margin-left: auto; /* Junto con margin-right: auto, centra el botón */
+  margin-right: auto;
+}

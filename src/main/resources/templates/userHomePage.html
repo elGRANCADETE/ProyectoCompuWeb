@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-greeting">
+            <h1>Bienvenido, <span th:text="${user.username}">Usuario</span>!</h1>
+            <p>Esto es tu página personal.</p>
+        </div>
+        <!-- Agrega más elementos según tus necesidades -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>
