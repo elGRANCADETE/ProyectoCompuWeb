@@ -36,6 +36,20 @@ public class WebController {
         return "userHomePage";
     }
 
+    @GetMapping("/organizer/home")
+    public String organizerHome(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "organizerHomePage";
+    }
+
+    @GetMapping("/admin/home")
+    public String adminHome(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "adminHomePage";
+    }
+
     // Otros mapeos...
 }
 

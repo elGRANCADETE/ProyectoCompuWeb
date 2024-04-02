@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-greeting">
+            <h1>Bienvenido, <span th:text="${user.username}">Administrador</span>!</h1>
+            <p>Esta es tu página de administrador.</p>
+        </div>
+        
+        <!-- Agregar opciones específicas para administradores aquí -->
+        <div>
+            <a href="/admin/users/manage" class="btn">Gestionar Usuarios</a>
+            <a href="/admin/events/manage" class="btn">Gestionar Eventos</a>
+            <a href="/admin/reports" class="btn">Ver Reportes</a>
+            <!-- Otros enlaces o botones según sea necesario -->
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>

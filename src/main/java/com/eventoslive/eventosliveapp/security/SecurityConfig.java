@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.eventoslive.eventosliveapp.service.CustomUserDetailsService;
 
@@ -34,7 +35,7 @@ public class SecurityConfig {
             )
             .formLogin(formLogin -> formLogin
             .loginPage("/login")
-            .defaultSuccessUrl("/user/home", true)
+            .successHandler(authenticationSuccessHandler()) // Usar el AuthenticationSuccessHandler personalizado
             .permitAll()
             )
             .logout(logout -> logout
@@ -55,5 +56,10 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-}
 
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+}
