@@ -2,13 +2,15 @@ package com.eventoslive.eventosliveapp.controller;
 
 import com.eventoslive.eventosliveapp.model.Event;
 import com.eventoslive.eventosliveapp.service.EventService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
 
-
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -41,8 +43,12 @@ public class EventController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ORGANIZER')")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event newEvent = eventService.createEvent(event);
+    public ResponseEntity<Event> createEvent(@ModelAttribute Event event, 
+                                             @RequestParam("eventCover") MultipartFile eventCover, 
+                                             Principal principal) {
+
+        String username = principal.getName(); // Obtiene el nombre de usuario del usuario autenticado
+        Event newEvent = eventService.createEvent(event, username, eventCover);
         return ResponseEntity.status(HttpStatus.CREATED).body(newEvent);
     }
 

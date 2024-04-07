@@ -1,4 +1,4 @@
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
+document.getElementById('registrationForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
   // Limpiar clases de error previas
@@ -14,29 +14,19 @@ document.getElementById('registrationForm').addEventListener('submit', function(
   var isValid = true;
   var formData = new FormData(this);
 
-  var csrfToken = formData.get('_csrf'); // Obtiene el token CSRF del formulario
+  var csrfToken = formData.get('_csrf');
 
-
-    // Log form data for debugging
-    console.log("Enviando formulario con datos:", Object.fromEntries(formData));
-
-   // Validar correo electrónico
-   var email = formData.get('email');
+  // Validar correo electrónico
+  var email = formData.get('email');
   if (!/^\S+@\S+\.\S+$/.test(email)) {
-    const errorEmail = document.getElementById('error-email');
-    errorEmail.textContent = 'Please include an "@" in the email address.';
-    document.querySelector('input[name="email"]').parentNode.classList.add('error');
-    errorEmail.style.display = 'block';
+    setError('email', 'Please include an "@" in the email address.');
     isValid = false;
   }
 
   // Validar número de teléfono
   var phoneNumber = formData.get('phoneNumber');
   if (!/^\d{9}$/.test(phoneNumber)) {
-    const errorPhoneNumber = document.getElementById('error-phoneNumber');
-    errorPhoneNumber.textContent = 'Phone number must be exactly 9 digits.';
-    document.querySelector('input[name="phoneNumber"]').parentNode.classList.add('error');
-    errorPhoneNumber.style.display = 'block';
+    setError('phoneNumber', 'Phone number must be exactly 9 digits.');
     isValid = false;
   }
 
@@ -44,53 +34,59 @@ document.getElementById('registrationForm').addEventListener('submit', function(
   var password = formData.get('password');
   var confirmPassword = formData.get('confirmPassword');
   if (password !== confirmPassword) {
-    const errorConfirmPassword = document.getElementById('error-confirmPassword');
-    errorConfirmPassword.textContent = 'Passwords do not match.';
-    document.querySelector('input[name="confirmPassword"]').parentNode.classList.add('error');
-    errorConfirmPassword.style.display = 'block';
+    setError('confirmPassword', 'Passwords do not match.');
     isValid = false;
   }
 
-  // Si el formulario no es válido, detener el procesamiento
-  if (!isValid) {
-    return;
+  // Si el formulario es válido hasta ahora, verificar disponibilidad
+  if (isValid) {
+    const username = formData.get('username');
+    const email = formData.get('email');
+    // Note: No need to pass csrfToken and setError as they are accessible from within the scope
+    checkAvailability(username, email);
   }
+});
 
-  // Crear un objeto con los datos del formulario
-  var userData = {
-    username: formData.get('username'), // Asegúrate de que los nombres coincidan con los campos del formulario
-    email: formData.get('email'),
-    phoneNumber: formData.get('phoneNumber'),
-    password: formData.get('password'),
-    confirmPassword: formData.get('confirmPassword')
-  };
+function setError(inputName, message) {
+  const formControl = document.querySelector(`input[name="${inputName}"]`).parentNode;
+  const errorDisplay = formControl.querySelector('.error-message');
+  errorDisplay.innerText = message;
+  formControl.classList.add('error');
+  errorDisplay.style.display = 'block';
+}
 
-  // Continuar con la solicitud fetch si el formulario es válido
-  fetch(this.action, {
+function checkAvailability(username, email) {
+  const csrfToken = document.querySelector('input[name="_csrf"]').value;
+  fetch('/users/check-availability', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-CSRF-TOKEN': csrfToken
     },
-    body: JSON.stringify(userData)
+    body: JSON.stringify({ username, email })
   })
-  .then(response => response.json())
-  .then(data => {
-    if (data.redirectUrl) {
-      window.location.href = data.redirectUrl; // Usar URL de redirección del servidor
-    } else {
-      window.location.href = '/users/registerConfirm'; // Redirigir a la página por defecto si no hay URL en la respuesta
-    }
-  })
-  .catch(errorResponse => {
-    if (errorResponse.json) {
-      errorResponse.json().then(errors => handleErrors(errors));
-    } else {
-      console.error("Error fetching:", errorResponse);
-    }
-  });
-});
-
+    .then(response => response.json())
+    .then(data => {
+      if (!data.available) {
+        if (data.usernameUnavailable) {
+          setError('username', 'El nombre de usuario ya está en uso.');
+        }
+        if (data.emailUnavailable) {
+          setError('email', 'El correo electrónico ya está registrado.');
+        }
+        // Do not proceed with form submission if there are errors
+      } else {
+        // If all is good, proceed with form submission
+        submitForm();
+      }
+    })
+    .catch(error => {
+      console.error('Error en la verificación:', error);
+      setError('server', 'Error al verificar la disponibilidad. Por favor, inténtelo de nuevo más tarde.');
+      // Display server error message
+      displayServerError('Error al verificar la disponibilidad. Por favor, inténtelo de nuevo más tarde.');
+    });
+}
 
 function handleErrors(errors) {
   for (let field in errors) {
@@ -115,12 +111,12 @@ function showModal() {
   modal.style.display = "block";
 
   // Close the modal when the user clicks on 'x'
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
   }
 
   // Close the modal if the user clicks outside of it
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
@@ -132,12 +128,69 @@ console.log("Script de validación cargado.");
 
 
 // Event listeners para eliminar la clase de error cuando el usuario corrige la entrada
-document.querySelector('input[name="phoneNumber"]').addEventListener('input', function() {
+document.querySelector('input[name="phoneNumber"]').addEventListener('input', function () {
   this.parentNode.classList.remove('error');
   document.getElementById('error-phoneNumber').style.display = 'none';
 });
 
-document.querySelector('input[name="confirmPassword"]').addEventListener('input', function() {
+document.querySelector('input[name="confirmPassword"]').addEventListener('input', function () {
   this.parentNode.classList.remove('error');
   document.getElementById('error-confirmPassword').style.display = 'none';
 });
+
+function submitForm() {
+  var formData = new FormData(document.getElementById('registrationForm'));
+  var userData = {
+    username: formData.get('username'),
+    email: formData.get('email'),
+    phoneNumber: formData.get('phoneNumber'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword')
+  };
+
+  fetch('/users/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': formData.get('_csrf')
+    },
+    body: JSON.stringify(userData)
+  })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = '/users/registerConfirm';
+      } else {
+        throw new Error('Something went wrong');
+      }
+    })
+    .then(data => {
+      // Manejar los errores mostrados al usuario aquí
+      handleErrors(data);
+    })
+    .catch(error => {
+      // Manejar errores de envío aquí
+      console.error('Error al enviar el formulario:', error);
+    });
+}
+
+// Añadir una nueva función para manejar la respuesta de disponibilidad
+function handleAvailabilityResponse(response, setError) {
+  if (!response.available) {
+    if (response.usernameUnavailable) {
+      setError('username', 'El nombre de usuario ya está en uso.');
+    }
+    if (response.emailUnavailable) {
+      setError('email', 'El correo electrónico ya está en uso.');
+    }
+    // No proceder al envío del formulario si hay errores
+  } else {
+    // Si todo está bien, proceder con el envío del formulario
+    submitForm();
+  }
+}
+
+function displayServerError(message) {
+  const serverErrorDiv = document.getElementById('server-error');
+  serverErrorDiv.innerText = message;
+  serverErrorDiv.style.display = 'block';
+}

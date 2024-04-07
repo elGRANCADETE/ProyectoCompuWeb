@@ -12,9 +12,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         boolean isAdmin = authentication.getAuthorities().stream()
-            .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+            .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
         boolean isOrganizer = authentication.getAuthorities().stream()
-            .anyMatch(authority -> authority.getAuthority().equals("ROLE_ORGANIZER"));
+            .anyMatch(authority -> authority.getAuthority().equals("ORGANIZER"));
 
         if (isAdmin) {
             response.sendRedirect("/admin/home");

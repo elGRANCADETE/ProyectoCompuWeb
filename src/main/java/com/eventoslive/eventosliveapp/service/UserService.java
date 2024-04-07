@@ -51,6 +51,7 @@ public class UserService {
         return userRepository.save(user); // Guardar el usuario
     }
 
+    
     @Transactional
     public User changeUserRole(Long userId, String newRole) {
         if (userId == null) {
@@ -102,5 +103,12 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public boolean isUsernameAvailable(String username) {
+        return userRepository.findByUsername(username) == null;
+    }
+
+    public boolean isEmailAvailable(String email) {
+        return userRepository.findByEmail(email) == null;
+    }
     // Otros métodos del servicio...
 }

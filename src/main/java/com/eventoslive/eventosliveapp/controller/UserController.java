@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -68,7 +66,7 @@ public class UserController {
                     .body(Collections.singletonMap("error", "Internal server error"));
         }
     }
-
+    
     @GetMapping("/verify")
     public ResponseEntity<?> verifyUser(@RequestParam String token) {
         try {
@@ -77,6 +75,22 @@ public class UserController {
         } catch (CustomException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/check-availability")
+    public ResponseEntity<?> checkAvailability(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String email = request.get("email");
+    
+        boolean isUsernameAvailable = userService.isUsernameAvailable(username);
+        boolean isEmailAvailable = userService.isEmailAvailable(email);
+    
+        Map<String, Object> response = new HashMap<>();
+        response.put("available", isUsernameAvailable && isEmailAvailable);
+        response.put("usernameUnavailable", !isUsernameAvailable);
+        response.put("emailUnavailable", !isEmailAvailable);
+    
+        return ResponseEntity.ok(response);
     }
 
     // Other endpoints as needed...

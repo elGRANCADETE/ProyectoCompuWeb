@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import com.eventoslive.eventosliveapp.service.CustomUserDetailsService;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -28,23 +27,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authenticationProvider(authenticationProvider()) // Añade esta línea
-            .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/login", "/users/register", "/css/**", "/js/**", "/images/**", "/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(formLogin -> formLogin
-            .loginPage("/login")
-            .successHandler(authenticationSuccessHandler()) // Usar el AuthenticationSuccessHandler personalizado
-            .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/login")
-                .permitAll()
-            )
-            .csrf().ignoringAntMatchers("/h2-console/**")
-            .and()
-            .headers().frameOptions().sameOrigin();
+                .authenticationProvider(authenticationProvider()) // Añade esta línea
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/admin/**").hasAuthority("ADMIN")
+                        .antMatchers("/organizer/**").hasAuthority("ORGANIZER")
+                        .antMatchers("/user/**").hasAuthority("USER")
+                        .antMatchers("/forum", "/login", "/users/register","/users/registerConfirm","/users/check-availability", "/css/**", "/js/**", "/images/**", "/h2-console/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .failureUrl("/login?error=true") // Manejo de credenciales login
+                        .successHandler(authenticationSuccessHandler()) // Usar el AuthenticationSuccessHandler
+                        // personalizado
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .permitAll())
+                .exceptionHandling(exception -> exception
+                                .accessDeniedPage("/login") // esta línea maneja excepciones de acceso
+                )
+                .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions().sameOrigin());
 
         return http.build();
     }
