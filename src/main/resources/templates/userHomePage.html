@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-greeting">
+            <h1>Bienvenido, <span th:text="${user.username}">Usuario</span>!</h1>
+            <p>Esto es tu página personal.</p>
+        </div>
+        <div class="actions">
+            <a th:href="@{/user/home/userForum}" class="btn">Ver Eventos</a>
+            <a th:href="@{/user/home/savedEvents}" class="btn">Ver Eventos Guardados</a>
+            <a th:href="@{/user/home/recommendEvents}" class="btn">Ver Eventos Compartidos</a>
+        </div>
+        <!-- Botón para cerrar sesión, ahora más abajo y en rojo -->
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="btn-discreet">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>

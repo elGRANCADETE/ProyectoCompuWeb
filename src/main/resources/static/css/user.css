@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(/images/Home.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.wrapper {
+  width: 420px;
+  background: rgba(0, 0, 0, 0.3); /* Transparencia negra para resaltar el texto */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(9px);
+  color: #EFEFEF; /* Texto más claro sobre fondo oscuro */
+  border-radius: 12px;
+  padding: 30px 40px;
+  position: relative; /* Importante para el posicionamiento absoluto de los hijos */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinea los hijos al centro horizontalmente */
+}
+
+.actions {
+  align-self: stretch; /* Ocupa completamente el ancho del contenedor padre */
+  display: flex;
+  justify-content: space-between; /* Separa los elementos al inicio y al final */
+  margin-top: 20px; /* Espacio adicional en la parte superior para evitar solapamientos */
+}
+
+.btn, .btn-discreet {
+  padding: 10px 20px;
+  background: #EFEFEF;
+  color: #333;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-discreet {
+  background: transparent;
+  border: 1px solid #EFEFEF;
+  color: #EFEFEF;
+}
+
+.logout-form {
+  margin: 0; /* Remueve cualquier margen automático */
+}
+
+.error-message {
+  color: #FFCCCC; /* Error en rojo más claro para contraste */
+  display: block;
+  font-size: 14px;
+  margin-top: 5px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(/images/Home.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.wrapper {
+  width: 420px;
+  background: rgba(0, 0, 0, 0.3); /* Transparencia negra para resaltar el texto */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(9px);
+  color: #EFEFEF; /* Texto más claro sobre fondo oscuro */
+  border-radius: 12px;
+  padding: 30px 40px;
+  position: relative; /* Importante para el posicionamiento absoluto de los hijos */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinea los hijos al centro horizontalmente */
+}
+
+.actions {
+  align-self: stretch; /* Ocupa completamente el ancho del contenedor padre */
+  display: flex;
+  justify-content: space-between; /* Separa los elementos al inicio y al final */
+  margin-top: 20px; /* Espacio adicional en la parte superior para evitar solapamientos */
+}
+
+.btn, .btn-discreet {
+  padding: 10px 20px;
+  background: #EFEFEF;
+  color: #333;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-discreet {
+  background: transparent;
+  border: 1px solid #EFEFEF;
+  color: #EFEFEF;
+}
+
+.logout-form {
+  margin: 0; /* Remueve cualquier margen automático */
+}
+
+.error-message {
+  color: #FFCCCC; /* Error en rojo más claro para contraste */
+  display: block;
+  font-size: 14px;
+  margin-top: 5px;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Eventos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <a href="/organizer/home" class="back-link">Volver a Inicio</a>
+        <h1>Mis Eventos</h1>
+        <div th:each="event : ${events}">
+            <div class="event">
+                <h2 th:text="${event.title}">Título del Evento</h2>
+                <p th:text="${event.description}">Descripción</p>
+                <img th:src="@{'/event_gallery/' + ${event.eventCoverPath}}" alt="Imagen del Evento">
+                <p th:text="${event.startTime}">Fecha y Hora</p>
+                <!-- Más detalles del evento -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

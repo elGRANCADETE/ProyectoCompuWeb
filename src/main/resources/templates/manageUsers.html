@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Gestión de Usuarios</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Email</th>
+                    <th>Rol Actual</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <form th:action="@{'/users/' + ${user.id} + '/changeRole'}" method="post">
+                            <select name="newRole">
+                                <option value="ADMIN" th:selected="${user.role == 'ADMIN'}">Administrador</option>
+                                <option value="ORGANIZER" th:selected="${user.role == 'ORGANIZER'}">Organizador</option>
+                                <option value="USER" th:selected="${user.role == 'USER'}">Usuario</option>
+                            </select>
+                            <button type="submit">Cambiar Rol</button>
+                        </form>
+                        <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="btn">Editar</a>
+                        <a th:href="@{'/users/profile/' + ${user.id}}" class="btn">Ver Perfil</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/admin/home" class="btn">Volver al Panel de Administrador</a>
+    </div>
+</body>
+</html>

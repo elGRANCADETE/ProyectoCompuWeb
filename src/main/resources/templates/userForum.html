@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro de Eventos</title>
+    <link rel="stylesheet" th:href="@{/css/forum.css}">
+</head>
+<body>
+    <div class="header">
+        <h1>Foro de Eventos</h1>
+        <a href="/user/home" class="btn">Volver</a>
+    </div>
+    <div class="event-container">
+        <div th:each="event : ${events}" class="event">
+            <img th:src="@{'/event_gallery/' + ${event.eventCoverPath}}" alt="Imagen del Evento" class="event-image">
+            <div class="event-info">
+                <h2 th:text="${event.title}">Título del Evento</h2>
+                <p th:text="${event.description}">Descripción</p>
+                <p th:text="${event.startTime}">Fecha y Hora</p>
+                <button class="btn btn-save" data-event-id="${event.id}" onclick="saveEvent(this)">Guardar Evento</button>
+                <button class="btn btn-share" th:data-event-id="${event.id}" onclick="shareEvent(this)">Compartir Evento</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function saveEvent(button) {
+            var eventId = button.getAttribute('data-event-id');
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/events/save/" + eventId, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("Evento guardado con éxito");
+                } else {
+                    alert("Error al guardar el evento");
+                }
+            };
+            xhr.send();
+        }
+
+        function shareEvent(button) {
+    var eventId = button.getAttribute('data-event-id');
+    window.location.href = '/user/home/userForum/shareEvents?eventId=' + eventId;  // Navegar a la página de compartir eventos
+}
+
+        /*]]>*/
+    </script>
+</body>
+</html>

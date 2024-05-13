@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Evento</title>
+    <link rel="stylesheet" th:href="@{/css/admin_events.css}"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Evento</h1>
+        <form th:action="@{/admin/events/update}" th:object="${event}" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <button type="submit" class="btn btn-primary">Actualizar Evento</button>
+            <a href="/admin/home" class="btn btn-secondary">Volver a la Página del admin</a>
+
+            <div class="form-group">
+                <label for="title">Título del Evento:</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" th:field="*{description}" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="startTime">Fecha y Hora de Inicio:</label>
+                <input type="datetime-local" id="startTime" th:field="*{startTime}" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="eventCover">Imagen del Evento:</label>
+                <input type="file" id="eventCover" name="eventCover" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar Evento</button>
+        </form>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Perfil de Usuario</h1>
+        <div class="user-details">
+            <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+            <p><strong>Nombre de Usuario:</strong> <span th:text="${user.username}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>Rol:</strong> <span th:text="${user.role}"></span></p>
+            <p><strong>Estado de Verificación:</strong> <span th:text="${user.verified ? 'Verificado' : 'No verificado'}"></span></p>
+        </div>
+        <a href="/admin/manage-users" class="btn">Volver</a>
+    </div>
+</body>
+</html>
