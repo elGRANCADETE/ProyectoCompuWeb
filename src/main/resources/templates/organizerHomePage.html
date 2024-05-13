@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Organizador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-greeting">
+            <h1>Bienvenido, <span th:text="${user.username}">Organizador</span>!</h1>
+            <p>Esta es tu página de organizador.</p>
+        </div>
+        
+        <!-- Agregar opciones específicas para organizadores aquí -->
+        <div>
+            <a href="/organizer/events/create" class="btn">Crear Nuevo Evento</a>
+            <a href="/organizer/events/my-events" class="btn">Gestionar Eventos</a>
+            <!-- Otros enlaces o botones según sea necesario -->
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>

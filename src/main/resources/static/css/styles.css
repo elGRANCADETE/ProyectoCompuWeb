@@ -1,0 +1,183 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(/images/Home.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.wrapper {
+  width: 420px;
+  background: rgba(0, 0, 0, 0.3); /* Transparencia negra para resaltar el texto */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(9px);
+  color: #EFEFEF; /* Texto más claro sobre fondo oscuro */
+  border-radius: 12px;
+  padding: 30px 40px;
+}
+
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+  color: #EFEFEF; /* Texto más claro para mayor legibilidad */
+}
+
+.wrapper .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #EFEFEF; /* Texto más claro */
+  padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+  color: #EFEFEF; /* Placeholder más claro */
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 30%;
+  transform: translate(-50%);
+  font-size: 20px;
+  color: #EFEFEF; /* Icono más claro */
+}
+
+.wrapper .remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+  accent-color: #EFEFEF;
+  margin-right: 3px;
+}
+
+.remember-forgot a {
+  color: #EFEFEF;
+  text-decoration: none;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.wrapper .btn {
+  width: 100%;
+  height: 45px;
+  background: #EFEFEF;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.wrapper .register-link {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register-link p a {
+  color: #EFEFEF;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link p a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #FFCCCC; /* Error en rojo más claro para contraste */
+  display: block;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.forum-button-right {
+  position: absolute;
+  right: 10px; /* Ajusta este valor según sea necesario para alinearlo con tu diseño */
+  top: 10px;  /* Ajusta este valor según sea necesario para colocarlo en la posición vertical deseada */
+}
+
+.wrapper {
+  width: 420px;
+  background: rgba(0, 0, 0, 0.3); /* Transparencia negra para resaltar el texto */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(9px);
+  color: #EFEFEF; /* Texto más claro sobre fondo oscuro */
+  border-radius: 12px;
+  padding: 30px 40px;
+  position: relative; /* Posición relativa para posicionar elementos internos de forma absoluta */
+}
+
+.actions {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn {
+  width: auto;
+  padding: 10px 20px;
+  background: #EFEFEF;
+  color: #333;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  display: inline-block;
+  margin: 5px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-discreet {
+  background: transparent;
+  border: 1px solid #EFEFEF;
+  color: #EFEFEF;
+  font-size: 14px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.logout-form {
+  margin-left: auto; /* Alinea el botón de cerrar sesión a la derecha */
+}
+
+.forum-button-right {
+  position: absolute;
+  right: 10px; /* Ajusta este valor según sea necesario para alinearlo con tu diseño */
+  top: 10px;  /* Ajusta este valor según sea necesario para colocarlo en la posición vertical deseada */
+}

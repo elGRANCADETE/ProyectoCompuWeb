@@ -1,0 +1,119 @@
+/* Reset margins and paddings for consistent cross-browser experience */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    color: #5a5a5a;
+    line-height: 1.6;
+}
+
+/* Main wrapper styling */
+.wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table thead th {
+    background-color: #4a69bd;
+    color: white;
+    padding: 12px 10px;
+    text-align: left;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:hover {
+    background-color: #edf2f7;
+}
+
+table td, table th {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Button styling */
+.btn {
+    padding: 8px 15px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4a69bd;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #e55039;
+}
+
+.btn:hover {
+    background-color: #3867d6;
+}
+
+.delete-btn:hover {
+    background-color: #eb3b5a;
+}
+
+/* Event statistics styling */
+.event-stats {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #edf2f7;
+    border-radius: 8px;
+}
+
+.event-stats h2 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.event-stats p {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .wrapper {
+        width: 95%;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+}

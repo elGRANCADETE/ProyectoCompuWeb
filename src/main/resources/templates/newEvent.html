@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/newEvent.js}"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Crear Nuevo Evento</h1>
+        <form th:action="@{/events/create}" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div>
+                <label for="startTime">Hora de Inicio:</label>
+                <input type="datetime-local" id="startTime" name="startTime" required>
+            </div>
+            <div>
+                <label for="durationMinutes">Duración (Minutos):</label>
+                <input type="number" id="durationMinutes" name="durationMinutes" required>
+            </div>
+            <div>
+                <label for="eventCover">Carátula del Evento:</label>
+                <input type="file" id="eventCover" name="eventCover" accept="image/jpeg" onchange="validateImage(this)">
+            </div>
+            <div th:if="${event != null}">
+                <img th:src="@{'/event_gallery/' + ${event.eventCoverPath}}" alt="Carátula del Evento" />
+            </div>
+            <button type="submit">Crear Evento</button>
+            <div id="imagePreviewContainer"></div>
+            <button type="button" onclick="previewImage()" class="btn">Previsualización</button>
+        </form>
+    </div>
+    <!-- Elemento canvas oculto para redimensionar la imagen -->
+    <canvas id="imageCanvas" style="display:none;"></canvas>
+
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePreview()">&times;</span>
+            <div id="previewContent"></div>
+        </div>
+    </div>
+
+    <div id="successMessage" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeSuccessMessage()">&times;</span>
+            <p>Evento registrado con éxito</p>
+        </div>
+    </div>
+
+    <!-- Enlace para regresar -->
+    <a href="/organizer/home">Volver a Inicio</a>
+    </div>
+</body>
+
+</html>

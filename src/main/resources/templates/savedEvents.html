@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos Guardados</title>
+    <link rel="stylesheet" th:href="@{/css/forum.css}">
+    <meta name="csrf-token" th:content="${_csrf.token}"/>
+</head>
+<body>
+    <div class="header">
+        <h1>Eventos Guardados</h1>
+        <a href="/user/home" class="btn">Volver</a>
+    </div>
+    <div class="event-container">
+        <div th:if="${savedEvents.isEmpty()}" class="event-info">
+            <p>No tienes eventos guardados.</p>
+        </div>
+        <div th:each="event : ${savedEvents}" class="event">
+            <img th:src="@{'/event_gallery/' + ${event.eventCoverPath}}" alt="Imagen del Evento" class="event-image">
+            <div class="event-info">
+                <h2 th:text="${event.title}">Título del Evento</h2>
+                <p th:text="${event.description}">Descripción</p>
+                <p th:text="${#temporals.format(event.startTime, 'dd/MM/yyyy HH:mm')}">Fecha y Hora</p>
+                <button type="button" class="btn" th:attr="data-event-id=${event.id}" onclick="removeEvent(this.getAttribute('data-event-id'))">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function removeEvent(eventId) {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch(`/user/events/remove/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+            }).then(response => {
+                if (response.ok) {
+                    alert('Evento eliminado correctamente.');
+                    window.location.reload();
+                } else {
+                    alert('Error al eliminar el evento.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Error en la solicitud: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>

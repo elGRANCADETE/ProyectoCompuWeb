@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form | EventosLiveApp</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <form id="registrationForm" th:action="@{/users/register}" method="post" novalidate>
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+      <h1>Register</h1>
+      <div class="input-box">
+        <input type="text" name="username" placeholder="Username" required>
+        <i class='bx bxs-user'></i>
+        <span class="error-message" id="error-username"></span>
+      </div>
+      <div class="input-box">
+        <input type="email" name="email" placeholder="Email" required>
+        <i class='bx bxs-envelope'></i>
+        <span class="error-message" id="error-email"></span>
+      </div>
+      <div class="input-box">
+        <input type="text" name="phoneNumber" placeholder="Phone Number" required>
+        <i class='bx bxs-phone'></i>
+        <span class="error-message" id="error-phoneNumber"></span>
+      </div>
+      <div class="input-box">
+        <input type="password" name="password" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
+        <span class="error-message" id="error-password"></span>
+      </div>
+      <div class="input-box">
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <i class='bx bxs-lock-alt'></i>
+        <span class="error-message" id="error-confirmPassword"></span>
+      </div>
+      <button type="submit" class="btn">Register</button>
+    </form>
+    <div class="register-link">
+      <p>Already have an account? <a th:href="@{/login}">Login</a></p>
+    </div>
+  </div>
+
+  <!-- Modal para confirmación de registro
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.</p>
+    </div>
+  </div>-->
+
+  <!-- Mensaje de error del servidor -->
+  <div id="server-error" class="error-message"></div>
+
+  <!-- Incluir el script de validación -->
+  <script th:src="@{/js/validationsRegister.js}"></script>
+</body>
+</html>

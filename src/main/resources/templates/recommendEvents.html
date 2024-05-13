@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Recomendados</title>
+    <link rel="stylesheet" th:href="@{/css/forum.css}">
+</head>
+<body>
+    <div class="header">
+        <h1>Eventos Recomendados</h1>
+        <a href="/user/home" class="btn">Volver al inicio</a>
+    </div>
+    <div class="event-container">
+        <div th:each="recommendation : ${recommendations}" class="event">
+            <img th:src="@{'/event_gallery/' + ${recommendation.event.eventCoverPath}}" alt="Imagen del Evento" class="event-image">
+            <div class="event-info">
+                <h2 th:text="${recommendation.event.title}">Título del Evento</h2>
+                <p th:text="${recommendation.event.description}">Descripción</p>
+                <p th:text="${recommendation.event.startTime}">Fecha y Hora</p>
+                <p>Recomendado por: <span th:text="${recommendation.sender.username}"></span></p>
+                <button class="btn btn-save" data-event-id="${recommendation.event.id}" onclick="saveEvent(this)">Guardar Evento</button>
+                <button class="btn btn-share" data-event-id="${recommendation.event.id}" onclick="shareEvent(this)">Compartir Evento</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function saveEvent(button) {
+            var eventId = button.getAttribute('data-event-id');
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/events/save/" + eventId, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("Evento guardado con éxito");
+                } else {
+                    alert("Error al guardar el evento");
+                }
+            };
+            xhr.send();
+        }
+
+        function shareEvent(button) {
+            var eventId = button.getAttribute('data-event-id');
+            window.location.href = '/recommendations/recommend?eventId=' + eventId;  // Navegar a la página de recomendación
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>

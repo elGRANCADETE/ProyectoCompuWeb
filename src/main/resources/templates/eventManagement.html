@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Eventos</title>
+    <link rel="stylesheet" th:href="@{/css/admin_events.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Gestión de Eventos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Imagen</th> <!-- Columna para imagen añadida -->
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="event : ${events}">
+                    <td th:text="${event.id}"></td>
+                    <td th:text="${event.title}"></td>
+                    <td>
+                        <!-- Mostrar imagen del evento -->
+                        <img th:if="${event.eventCoverPath}" th:src="@{'/path/to/images/' + ${event.eventCoverPath}}" alt="Imagen del Evento" style="width:100px;height:auto;"/>
+                        <span th:unless="${event.eventCoverPath}">Sin imagen</span>
+                    </td>
+                    <td th:text="${event.description}"></td>
+                    <td th:text="${#temporals.format(event.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <a th:href="@{'/admin/events/edit/' + ${event.id}}" class="btn">Editar Evento</a>
+                        
+                        <!-- Formulario para eliminar -->
+                        <form th:action="@{'/admin/events/delete/' + ${event.id}}" method="post">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn delete-btn" onclick="return confirm('¿Está seguro de que desea eliminar este evento?');">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="event-stats">
+            <h2>Estadísticas de Eventos</h2>
+            <p>Total de Eventos: <span th:text="${totalNumberOfEvents}"></span></p>
+            <p>Eventos Más Populares: <span th:text="${numberOfPopularEvents}"></span></p>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/admin/home" class="btn">Volver al Panel de Administrador</a>
+    </div>
+</body>
+</html>
+
